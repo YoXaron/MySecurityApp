@@ -40,25 +40,14 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/hello", true)
                         .failureUrl("/auth/login?error")
                 )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/auth/login")
+                )
                 .rememberMe(Customizer.withDefaults());
 
         return http.build();
     }
-
-//    Spring Security 5
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable()
-//                .authorizeHttpRequests()
-//                .antMatchers("/auth/login", "error").permitAll()
-//                .anyRequests().authenticated()
-//                .and()
-//                .formLogin().loginPage("/auth/login")
-//                .loginProcessingUrl("process_login")
-//                .defaultSuccessUrl("/hello", true)
-//                .failureUrl("/auth/login?error");
-//    }
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
